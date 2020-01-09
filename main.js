@@ -1,5 +1,5 @@
 var cnvs = document.getElementById("canvas");
-var cntx = cvs.getContext("2d");
+var cntx = cnvs.getContext("2d");
 
 // load images
 
@@ -15,29 +15,36 @@ fg.src = "images/ground.png";
 northpipe.src = "Images/northpipe.png";
 southpipe.src = "Images/southpipe.png";
 
-var gap = 70;
+var gap = 80; //the gap of the pipes vertically
 var constant;
-var bX = 10;
-var bY = 150;
-var gravity = 1.5;
-var score = 0;
+var bX = 10; //changes the birds x pos
+var bY = 80; //changes the birds beginning y pos
+var gravity = 2; //how fast the bird will drop
+var score = 0; //the score duh
 
 document.addEventListener("keydown",moveUp);
 
 function moveUp(){
-    bY -= 10;
+    bY -= 40; //makes the bird go up
 }
 
 var pipe = [];
 
 pipe[0] = {
     x : cnvs.width,
-    y : 0
+    y : -180 //height of first pipe
 };
 
 function draw(){
     
-    ctx.drawImage(bg,0,0);
+    cntx.drawImage(bg,0,0);
+
+    if( pipe[pipe.length - 1].x == 70 ){ //width of pipes apart
+        pipe.push({
+            x : cnvs.width,
+            y : Math.floor(Math.random() * 115) + 15 - northpipe.height // a number between 130 and 15
+        }); 
+    }
     
     for(var i = 0; i < pipe.length; i++){
         
@@ -47,12 +54,7 @@ function draw(){
              
         pipe[i].x--;
         
-        if( pipe[i].x == 125 ){
-            pipe.push({
-                x : cnvs.width,
-                y : Math.floor(Math.random()*northpipe.height)-northpipe.height
-            }); 
-        }
+        
 
         if( bX + bird.width >= pipe[i].x && bX <= pipe[i].x + northpipe.width && (bY <= pipe[i].y + northpipe.height || bY+bird.height >= pipe[i].y+constant) || bY + bird.height >=  cnvs.height - fg.height){
             location.reload();
@@ -64,15 +66,15 @@ function draw(){
         
     }
 
-    ctx.drawImage(fg,0,cnvs.height - fg.height);
+    cntx.drawImage(fg,0,cnvs.height - fg.height);
     
-    ctx.drawImage(bird,bX,bY);
+    cntx.drawImage(bird,bX,bY);
     
     bY += gravity;
     
-    ctx.fillStyle = "#000";
-    ctx.font = "20px Verdana";
-    ctx.fillText("Score : "+score,10,cvs.height-20);
+    cntx.fillStyle = "#000";
+    cntx.font = "20px Verdana";
+    cntx.fillText("Score : "+score,10,cnvs.height-20);
     
     requestAnimationFrame(draw);
     
