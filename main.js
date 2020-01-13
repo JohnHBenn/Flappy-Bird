@@ -1,6 +1,7 @@
 var cnvs = document.getElementById("canvas");
 var cntx = cnvs.getContext("2d");
 
+//load images
 var bird = new Image();
 var bg = new Image();
 var fg = new Image();
