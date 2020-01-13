@@ -1,26 +1,48 @@
 var cnvs = document.getElementById("canvas");
 var cntx = cnvs.getContext("2d");
 
-// load images
-
 var bird = new Image();
 var bg = new Image();
 var fg = new Image();
 var northpipe = new Image();
 var southpipe = new Image();
+var play = new Image();
+var score = new Image();
+var zero = new Image();
+var one = new Image();
+var two = new Image();
+var three = new Image();
+var four = new Image();
+var five = new Image();
+var six = new Image();
+var seven = new Image();
+var eight = new Image();
+var nine = new Image();
 
 bird.src = "Images/Mr.flappy.png";
 bg.src = "images/background.png";
 fg.src = "images/ground.png";
 northpipe.src = "Images/northpipe.png";
 southpipe.src = "Images/southpipe.png";
+play.src = "Images/Buttons/play.png";
+score.src = "Images/Buttons/score.png";
+zero.src = "Images/Numbers/zero.png";
+one.src = "Images/Numbers/one.png";
+two.src = "Images/Numbers/two.png";
+three.src = "Images/Numbers/three.png";
+four.src = "Images/Numbers/four.png";
+five.src = "Images/Numbers/five.png";
+six.src = "Images/Numbers/six.png";
+seven.src = "Images/Numbers/seven.png";
+eight.src = "Images/Numbers/eight.png";
+nine.src = "Images/Numbers/nine.png";
 
 var gap = 80; //the gap of the pipes vertically
 var constant;
 var bX = 10; //changes the birds x pos
 var bY = 80; //changes the birds beginning y pos
 var gravity = 2; //how fast the bird will drop
-var score = 0; //the score duh
+var scoore = 0; //the score duh
 
 document.addEventListener("keydown",moveUp);
 
@@ -37,12 +59,12 @@ pipe[0] = {
 
 function draw(){
     
-    cntx.drawImage(bg,0,0);
+    cntx.drawImage(bg,0,0);//makes background
 
-    if( pipe[pipe.length - 1].x == 70 ){ //width of pipes apart
+    if( pipe[pipe.length - 1].x == 60 ){ //width of pipes apart horizontally
         pipe.push({
             x : cnvs.width,
-            y : Math.floor(Math.random() * 115) + 15 - northpipe.height // a number between 130 and 15
+            y : Math.floor(Math.random() * 115) + 15 - northpipe.height // a number between 115 and 15
         }); 
     }
     
@@ -61,7 +83,7 @@ function draw(){
         }
         
         if(pipe[i].x == 5){
-            score++;
+            scoore++;
         }
         
     }
@@ -74,8 +96,8 @@ function draw(){
     
     cntx.fillStyle = "#000";
     cntx.font = "20px Verdana";
-    cntx.fillText("Score : "+score,10,cnvs.height-20);
-    
+    cntx.fillText("Score : "+scoore,10,cnvs.height-20);
+    cntx.drawImage(score,10,cnvs.height-20);
     requestAnimationFrame(draw);
     
 }
